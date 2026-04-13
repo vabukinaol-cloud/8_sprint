@@ -1,11 +1,10 @@
 import client.UserClient;
 import io.qameta.allure.Description;
-import io.qameta.allure.junit4.DisplayName;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import pojo.UserCreate;
-import pojo.UserLogin;
 import utils.UserGenerator;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -16,12 +15,12 @@ public class CreateUserTest {
     private UserClient userClient;
     private String accessToken;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         userClient = new UserClient();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         if (accessToken != null) {
             userClient.delete(accessToken);

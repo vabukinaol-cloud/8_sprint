@@ -2,11 +2,11 @@ import client.IngredientClient;
 import client.OrderClient;
 import client.UserClient;
 import io.qameta.allure.Description;
-import io.qameta.allure.junit4.DisplayName;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import pojo.OrderCreate;
 import pojo.UserCreate;
 import utils.UserGenerator;
@@ -29,14 +29,14 @@ public class CreateOrderTest {
     private UserCreate user;
     private String accessToken;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpIngredients() {
         ingredientIds = new IngredientClient().getIngredients()
                 .statusCode(200)
                 .extract().jsonPath().getList("data._id", String.class);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         userClient = new UserClient();
         orderClient = new OrderClient();
@@ -46,7 +46,7 @@ public class CreateOrderTest {
                 .extract().path("accessToken");
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         if (accessToken != null) {
             userClient.delete(accessToken);
